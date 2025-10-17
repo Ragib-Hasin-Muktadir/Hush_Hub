@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Appointment Detail{% endblock %}
+{% block content %}
+<h3>Appointment with {{ appointment.patient.username }}</h3>
+
+<p><strong>Date:</strong> {{ appointment.start_time }} - {{ appointment.end_time }}</p>
+<p><strong>Status:</strong> {{ appointment.status }}</p>
+
+{% if appointment.notes %}
+  <div class="alert alert-secondary">
+    <strong>Existing Notes:</strong> {{ appointment.notes }}
+  </div>
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label>Add / Update Notes</label>
+    <textarea name="notes" class="form-control" rows="4">{{ appointment.notes }}</textarea>
+  </div>
+  <button type="submit" class="btn btn-primary mt-2">Save Notes</button>
+</form>
+{% endblock %}

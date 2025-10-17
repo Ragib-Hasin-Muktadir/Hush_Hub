@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Therapist Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome, {{ profile.user.get_full_name|default:profile.user.username }}</h2>
+
+<h4 class="mt-4">Upcoming Appointments</h4>
+{% if upcoming %}
+  <ul class="list-group">
+    {% for appt in upcoming %}
+      <li class="list-group-item">
+        <strong>{{ appt.start_time }}</strong> — <a href="{% url 'therapist:appointment_detail' appt.pk %}">{{ appt.patient.username }}</a> ({{ appt.status }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No upcoming appointments.</p>
+{% endif %}
+
+<h4 class="mt-4">Recent Notes</h4>
+{% for note in recent_notes %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <p>{{ note.notes|truncatewords:30 }}</p>
+      <a href="{% url 'therapist:appointment_detail' note.appointment.pk %}">View appointment</a>
+    </div>
+  </div>
+{% empty %}
+  <p>No notes yet.</p>
+{% endfor %}
+{% endblock %}

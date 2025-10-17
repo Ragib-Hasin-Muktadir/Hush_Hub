@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Therapist Profile{% endblock %}
+{% block content %}
+<h3>{{ therapist.user.username }}'s Profile</h3>
+
+<p><strong>Specialization:</strong> {{ therapist.specialization }}</p>
+<p><strong>Experience:</strong> {{ therapist.experience }} years</p>
+<p><strong>Bio:</strong> {{ therapist.bio }}</p>
+
+<a href="{% url 'therapist:booking' therapist.id %}" class="btn btn-success mt-3">Book Session</a>
+{% endblock %}
