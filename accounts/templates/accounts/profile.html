@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Profile</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+
+        {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" width="100" class="rounded" alt="Profile Picture">
+        {% else %}
+        <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Oliver" width="100" class="rounded"
+             alt="Default Profile Picture">
+        {% endif %}
+
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+    </div>
+</div>
+
+<h4>Emergency Contacts</h4>
+<a href="{% url 'accounts:add_contact' %}" class="btn btn-success mb-3">Add Contact</a>
+
+{% if contacts %}
+<ul class="list-group">
+    {% for contact in contacts %}
+        <li class="list-group-item" style="display: flex; justify-content: space-between;">
+    <div>
+            <strong>{{ contact.name }}</strong> - {{ contact.phone_number }} - {{ contact.relationship}}
+    </div>
+        <div>
+            <a href="{% url 'accounts:update_contact' contact.pk %}" class="btn btn-sm btn-primary">Update</a>
+            <a href="{% url 'accounts:delete_contact' contact.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        </div>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No emergency contacts added yet.</p>
+{% endif %}
+
+{% endblock %}
