@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Daily Affirmations{% endblock %}
+{% block content %}
+    <h2>Daily Affirmations 💫</h2>
+
+    <div class="card mb-4 shadow" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="card-body text-white text-center p-5">
+            {% if todays_affirmation %}
+                <h3>"{{ todays_affirmation.affirmation_text }}"</h3>
+            {% else %}
+                <p>No affirmation for today</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5>Wellness Tips</h5>
+        </div>
+        <div class="card-body">
+            {% for tip in wellness_tips %}
+                <div class="alert alert-light">💡 {{ tip.tip_text }}</div>
+            {% empty %}
+                <p>No tips available</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

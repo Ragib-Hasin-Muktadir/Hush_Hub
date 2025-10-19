@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Meditation Library{% endblock %}
+{% block content %}
+<h2>Meditation Library 🧘</h2>
+
+<div class="row">
+    {% for meditation in meditations %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ meditation.title }}</h5>
+                    <p>{{ meditation.description }}</p>
+                    <p><strong>Duration:</strong> {{ meditation.duration }} min</p>
+                    <a href="{% url 'wellness:start_meditation' meditation.id %}" class="btn btn-primary">Start</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No meditations available yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

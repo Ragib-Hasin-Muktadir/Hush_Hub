@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome, {{ user.username }}! 👋</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h3>{{ weekly_moods }}</h3>
+                <p>Mood Entries</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h3>{{ weekly_journals }}</h3>
+                <p>Journal Entries</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5>Your Mood Patterns</h5>
+    </div>
+    <div class="card-body">
+        <canvas id="moodChart" width="400" height="150"></canvas>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h5>Insights</h5>
+    </div>
+    <div class="card-body">
+        {% for insight in insights %}
+            <div class="alert alert-light">💡 {{ insight }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const moodData = {{ mood_counts|safe }};
+const ctx = document.getElementById('moodChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: Object.keys(moodData),
+        datasets: [{
+            label: 'Mood Count',
+            data: Object.values(moodData),
+            backgroundColor: ['#4ade80', '#60a5fa', '#f59e0b', '#a78bfa', '#f87171']
+        }]
+    }
+});
+</script>
+{% endblock %}

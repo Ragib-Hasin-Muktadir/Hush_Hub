@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{ meditation.title }}{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3>{{ meditation.title }}</h3>
+    </div>
+    <div class="card-body">
+        <p>{{ meditation.description }}</p>
+        <div class="alert alert-info">
+            <strong>Duration:</strong> {{ meditation.duration }} minutes
+        </div>
+        <div class="p-3 bg-light">
+            {{ meditation.guide_text|linebreaks }}
+        </div>
+        <form method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>Duration Completed (minutes)</label>
+                <input type="number" class="form-control" name="duration_completed" value="{{ meditation.duration }}" required>
+            </div>
+            <button type="submit" class="btn btn-success">Complete Session</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
