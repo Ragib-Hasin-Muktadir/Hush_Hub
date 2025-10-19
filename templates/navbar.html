@@ -3,6 +3,9 @@
         <a class="navbar-brand" href="{% url 'home' %}">🤫 HushHub</a>
         <div class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
+
+                <a class="nav-link" href="{% url 'wellness:mood_tracker' %}">Mood</a>
+                <a class="nav-link" href="{% url 'wellness:journal' %}">Journal</a>
                 <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
                 <a class="nav-link" href="{% url 'community:feed' %}">Feed</a>
                 <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>

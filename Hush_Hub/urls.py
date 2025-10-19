@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('community/', include('community.urls')),
+    path('wellness/', include('wellness.urls')),
 ]
 
 if settings.DEBUG:

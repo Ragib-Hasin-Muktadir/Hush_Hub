@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Mood Tracker{% endblock %}
+{% block content %}
+<h2>Mood Tracker 😊</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Log Mood</button>
+        </form>
+    </div>
+</div>
+
+<h4>Recent Moods</h4>
+{% for mood in moods %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <strong>{{ mood.get_mood_display }}</strong> - {{ mood.created_at|date:"M d, Y" }}
+            {% if mood.note %}<p>{{ mood.note }}</p>{% endif %}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
