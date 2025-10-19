@@ -1,5 +1,5 @@
 from django import forms
-from .models import MoodEntry, JournalEntry
+from .models import MoodEntry, JournalEntry, SelfCareTask
 
 
 class MoodEntryForm(forms.ModelForm):
@@ -17,3 +17,8 @@ class JournalEntryForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'rows': 6}),
         }
+
+class SelfCareTaskForm(forms.ModelForm):
+    class Meta:
+        model = SelfCareTask
+        fields = ['task_name', 'category']

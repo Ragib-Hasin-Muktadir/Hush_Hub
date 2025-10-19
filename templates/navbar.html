@@ -1,18 +1,30 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">🤫 HushHub</a>
-        <div class="navbar-nav ms-auto">
-            {% if user.is_authenticated %}
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">🤫 HushHub</a>
 
-                <a class="nav-link" href="{% url 'wellness:mood_tracker' %}">Mood</a>
-                <a class="nav-link" href="{% url 'wellness:journal' %}">Journal</a>
-                <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
-                <a class="nav-link" href="{% url 'community:feed' %}">Feed</a>
-                <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
-            {% else %}
-                <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-                <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
-            {% endif %}
-        </div>
+    <div class="navbar-nav ms-auto">
+      {% if user.is_authenticated %}
+
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Wellness
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="{% url 'wellness:selfcare_checklist' %}">Self-Care</a></li>
+          <li><a class="dropdown-item" href="{% url 'wellness:routine_tracker' %}">Routine</a></li>
+          <li><a class="dropdown-item" href="{% url 'wellness:mood_tracker' %}">Mood</a></li>
+          <li><a class="dropdown-item" href="{% url 'wellness:journal' %}">Journal</a></li>
+        </ul>
+      </div>
+
+      <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
+      <a class="nav-link" href="{% url 'community:feed' %}">Feed</a>
+      <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+
+      {% else %}
+      <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+      <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+      {% endif %}
     </div>
+  </div>
 </nav>
