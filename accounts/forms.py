@@ -15,3 +15,9 @@ class EmergencyContactForm(forms.ModelForm):
     class Meta:
         model = EmergencyContact
         fields = ['name', 'phone_number', 'relationship']
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['bio', 'phone', 'profile_picture']
