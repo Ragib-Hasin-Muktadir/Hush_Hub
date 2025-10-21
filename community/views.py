@@ -1,10 +1,11 @@
 from django.contrib import messages
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-
-from .forms import PostForm, CommentForm
-from .models import Post
-
+from django.db.models import Q
+from .forms import PostForm, CommentForm, MessageForm
+from .models import Post, Message
+from accounts.models import User
 
 @login_required
 def feed(request):
@@ -64,3 +65,42 @@ def update_post(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'community/update_post.html', {'form': form})
+
+
+
+@login_required
+def inbox(request):
+    # Get all users except current user
+    users = User.objects.exclude(id=request.user.id)
+
+    # Get selected conversation
+    selected_user_id = request.GET.get('user')
+    conversation = []
+    selected_user = None
+
+    if selected_user_id:
+        selected_user = get_object_or_404(User, id=selected_user_id)
+        conversation = Message.objects.filter(
+            Q(sender=request.user, receiver=selected_user) |
+            Q(sender=selected_user, receiver=request.user)
+        )
+        # Mark as read
+        Message.objects.filter(sender=selected_user, receiver=request.user, is_read=False).update(is_read=True)
+
+    # Send message
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        receiver_id = request.POST.get('receiver_id')
+        if content and receiver_id:
+            Message.objects.create(
+                sender=request.user,
+                receiver_id=receiver_id,
+                content=content
+            )
+            return redirect(f'/community/inbox/?user={receiver_id}')
+
+    return render(request, 'community/inbox.html', {
+        'users': users,
+        'conversation': conversation,
+        'selected_user': selected_user
+    })
