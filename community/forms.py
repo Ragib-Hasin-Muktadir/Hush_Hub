@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Comment, Message
+from .models import Post, Comment, Message, MoodEntry
 
 
 class PostForm(forms.ModelForm):
@@ -28,3 +28,9 @@ class MessageForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'rows': 3})
         }
+
+
+class MoodForm(forms.ModelForm):
+    class Meta:
+        model = MoodEntry
+        fields = ['mood', 'note']

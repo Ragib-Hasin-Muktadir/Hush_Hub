@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Mood Tracker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h2>Mood Tracker</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label>How are you feeling today?</label>
+                        {{ form.mood }}
+                    </div>
+                    <div class="mb-3">
+                        <label>Notes (optional)</label>
+                        {{ form.note }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log Mood</button>
+                </form>
+            </div>
+        </div>
+
+        <h4>Your Mood History</h4>
+        {% for mood in moods %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5>{{ mood.get_mood_display }} - {{ mood.date|date:"M d, Y" }}</h5>
+                {% if mood.note %}
+                    <p class="mb-0">{{ mood.note }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-info">No mood entries yet. Start tracking your mood!</div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    select, textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}

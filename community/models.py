@@ -41,3 +41,30 @@ class Message(models.Model):
 
 
 
+
+
+
+
+class MoodEntry(models.Model):
+    MOOD_CHOICES = [
+        (1, '😞 Very Sad'),
+        (2, '😕 Sad'),
+        (3, '😐 Neutral'),
+        (4, '🙂 Happy'),
+        (5, '😄 Very Happy'),
+    ]
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='community_moods'
+    )
+    mood = models.IntegerField(choices=MOOD_CHOICES)
+    note = models.TextField(blank=True)
+    date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.get_mood_display()}"

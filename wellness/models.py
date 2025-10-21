@@ -13,7 +13,12 @@ class MoodEntry(models.Model):
         ('stressed', 'Stressed'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='wellness_moods'
+    )
+
     mood = models.CharField(max_length=20, choices=MOOD_CHOICES)
     note = models.TextField(blank=True)
     created_at = models.DateTimeField(default=timezone.now)
