@@ -2,46 +2,50 @@
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">🤫 HushHub</a>
 
-        <div class="navbar-nav ms-auto">
-            {% if user.is_authenticated %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="wellnessDropdown" role="button"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    Wellness
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="wellnessDropdown">
-                    <li><a class="dropdown-item" href="{% url 'wellness:selfcare_checklist' %}">Self-Care</a></li>
-                    <li><a class="dropdown-item" href="{% url 'wellness:routine_tracker' %}">Routine</a></li>
-                    <li><a class="dropdown-item" href="{% url 'wellness:mood_tracker' %}">Mood</a></li>
-                    <li><a class="dropdown-item" href="{% url 'wellness:journal' %}">Journal</a></li>
-                </ul>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="wellnessDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Wellness
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="wellnessDropdown">
+                        <li><a class="dropdown-item" href="{% url 'wellness:selfcare_checklist' %}">Self-Care</a></li>
+                        <li><a class="dropdown-item" href="{% url 'wellness:routine_tracker' %}">Routine</a></li>
+                        <li><a class="dropdown-item" href="{% url 'wellness:mood_tracker' %}">Mood</a></li>
+                        <li><a class="dropdown-item" href="{% url 'wellness:journal' %}">Journal</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="communityDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Community
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="communityDropdown">
+                        <li><a class="dropdown-item" href="{% url 'community:feed' %}">Feed</a></li>
+                        <li><a class="dropdown-item" href="{% url 'community:inbox' %}">Inbox</a></li>
+                        <li><a class="dropdown-item" href="#">Post Details</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'wellness:mood_tracker' %}">Mood Tracker</a></li>
+                    </ul>
+                </div>
+
+                <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
+                <a class="nav-link" href="{% url 'rewards:user_progress' %}">Rewards 🎁</a>
+                <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+
+                {% else %}
+                <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+                {% endif %}
             </div>
-
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="communityDropdown" role="button"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    Community
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="communityDropdown">
-                    <li><a class="dropdown-item" href="{% url 'community:feed' %}">Feed</a></li>
-
-                    <li><a class="dropdown-item" href="{% url 'community:inbox' %}">Inbox</a></li>
-
-                    <li><a class="dropdown-item" href="#">Post Details</a></li>
-
-                    <li><a class="dropdown-item" href="{% url 'community:mood_tracker' %}">Mood Tracker</a></li>
-                </ul>
-            </div>
-
-
-            <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
-            <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
-
-            {% else %}
-            <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-            <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
-            {% endif %}
         </div>
     </div>
 </nav>

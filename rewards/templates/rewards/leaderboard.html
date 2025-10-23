@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Hush-Hub Leaderboard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1 class="hush-hub-title">🌟 Wellness Tribe Leaderboard 🌟</h1>
+            <p class="lead text-muted">Top members progressing on the path of peace. Identities remain anonymous.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        {% for entry in top_users %}
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card shadow-sm border-0 {% if forloop.first %}bg-hush-gold text-white{% else %}bg-white{% endif %}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="h3 mb-0 me-3">
+                            {% if forloop.first %}🥇{% elif forloop.counter == 2 %}🥈{% elif forloop.counter == 3 %}🥉{% else %}{{ forloop.counter }}{% endif %}
+                        </div>
+
+                        <div>
+                            <h5 class="card-title mb-1 {% if forloop.first %}text-white{% else %}text-primary{% endif %}">
+                                {{ entry.user.user_ld|default:"Anon-User" }}
+                            </h5>
+                            <p class="card-subtitle text-muted {% if forloop.first %}text-white-50{% endif %}">
+                                Level {{ entry.current_level }}
+                            </p>
+                        </div>
+
+                        <div class="text-end">
+                            <h4 class="mb-0 {% if forloop.first %}text-white{% else %}text-success{% endif %}">
+                                {{ entry.total_xp }} <small class="text-muted {% if forloop.first %}text-white-50{% endif %}">XP</small>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not top_users %}
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <p class="text-muted">No data available yet. Start your self-care journey and climb to the top!</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

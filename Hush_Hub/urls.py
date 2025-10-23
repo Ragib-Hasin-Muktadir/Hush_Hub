@@ -11,6 +11,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('community/', include('community.urls')),
     path('wellness/', include('wellness.urls')),
+    path('therapist/', include('therapist.urls')),
+    path('rewards/', include('rewards.urls', namespace='rewards')),
 ]
 
 if settings.DEBUG:

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'community',
     'wellness',
     'therapist',
+    'rewards',
 ]
 
 MIDDLEWARE = [
