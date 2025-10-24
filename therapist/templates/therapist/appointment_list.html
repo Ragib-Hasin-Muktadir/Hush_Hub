@@ -1,19 +1,33 @@
 {% extends 'base.html' %}
+{% block title %}Appointment Detail{% endblock %}
+
 {% block content %}
-<h3>Your Appointments</h3>
-<table class="table">
-  <thead><tr><th>With</th><th>Start</th><th>Status</th><th></th></tr></thead>
-  <tbody>
-  {% for a in appointments %}
-    <tr>
-      <td>{% if user.user_type == 'therapist' %}{{ a.patient.username }}{% else %}{{ a.therapist.username }}{% endif %}</td>
-      <td>{{ a.start_time|date:"M d, Y H:i" }}</td>
-      <td>{{ a.status }}</td>
-      <td><a href="{% url 'therapist:appointment_detail' a.pk %}">View</a></td>
-    </tr>
-  {% empty %}
-    <tr><td colspan="4">No appointments found</td></tr>
-  {% endfor %}
-  </tbody>
-</table>
+<div class="container mt-4">
+    <h3 class="mb-4 text-center">Appointment Details</h3>
+
+    <div class="card shadow-sm p-4">
+        <p><strong>Therapist:</strong> {{ appointment.therapist.username }}</p>
+        <p><strong>Patient:</strong> {{ appointment.patient.username }}</p>
+        <p><strong>Reason:</strong> {{ appointment.reason }}</p>
+        <p><strong>Start:</strong> {{ appointment.start_time|date:"M d, Y H:i" }}</p>
+        <p><strong>Status:</strong> {{ appointment.status|title }}</p>
+    </div>
+
+    {% if user == appointment.therapist %}
+    <div class="mt-5">
+        <h4>📝 Session Note</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Save Note</button>
+        </form>
+    </div>
+    {% elif appointment.session_note %}
+    <div class="mt-5">
+        <h4>Therapist’s Note</h4>
+        <p>{{ appointment.session_note.content }}</p>
+        <small class="text-muted">{{ appointment.session_note.created_at|date:"M d, Y H:i" }}</small>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

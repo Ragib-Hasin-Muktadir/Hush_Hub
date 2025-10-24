@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}Therapists{% endblock %}
+
 {% block content %}
-<h3>Available Therapists</h3>
-<ul class="list-group">
-  {% for t in therapists %}
-    <li class="list-group-item">
-      <strong>{{ t.user.get_full_name|default:t.user.username }}</strong> — {{ t.specialization }}
-      <br>
-      <small>{{ t.availability_notes|truncatewords:12 }}</small>
-    </li>
-  {% empty %}
-    <li class="list-group-item">No therapists yet.</li>
-  {% endfor %}
-</ul>
+<div class="container mt-4">
+    <h3 class="mb-4 text-center">Available Therapists</h3>
+    <ul class="list-group">
+        {% for t in therapists %}
+            <li class="list-group-item">
+                <strong>{{ t.name }}</strong> — {{ t.specialty }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">No therapists available right now.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
