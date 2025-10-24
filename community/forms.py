@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Comment, Message, MoodEntry
+from .models import Post, Comment, Message
 
 
 class PostForm(forms.ModelForm):
@@ -30,7 +30,3 @@ class MessageForm(forms.ModelForm):
         }
 
 
-class MoodForm(forms.ModelForm):
-    class Meta:
-        model = MoodEntry
-        fields = ['mood', 'note']

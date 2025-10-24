@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-from .forms import PostForm, CommentForm, MessageForm, MoodForm
-from .models import Post, Message, MoodEntry
+from .forms import PostForm, CommentForm, MessageForm
+from .models import Post, Message
 from accounts.models import User
 
 @login_required
@@ -104,24 +104,3 @@ def inbox(request):
         'conversation': conversation,
         'selected_user': selected_user
     })
-
-
-
-
-
-
-@login_required
-def mood_tracker(request):
-    if request.method == 'POST':
-        form = MoodForm(request.POST)
-        if form.is_valid():
-            mood = form.save(commit=False)
-            mood.user = request.user
-            mood.save()
-            messages.success(request, 'Mood logged!')
-            return redirect('community:mood_tracker')
-    else:
-        form = MoodForm()
-
-    moods = MoodEntry.objects.filter(user=request.user)
-    return render(request, 'community/mood_tracker.html', {'form': form, 'moods': moods})
