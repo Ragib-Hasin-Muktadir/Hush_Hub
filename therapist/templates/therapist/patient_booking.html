@@ -1,20 +1,6 @@
-{% extends 'base.html' %}
-{% block title %}Book Appointment{% endblock %}
-{% block content %}
-<h3>Book an Appointment with {{ therapist.user.username }}</h3>
-
-<form method="POST">
+<form method="post">
   {% csrf_token %}
-  <div class="mb-3">
-    <label>Select Date & Time</label>
-    <input type="datetime-local" name="start_time" class="form-control">
-  </div>
-
-  <div class="mb-3">
-    <label>Reason</label>
-    <textarea name="reason" class="form-control" placeholder="Why do you want this session?" rows="4"></textarea>
-  </div>
-
-  <button type="submit" class="btn btn-primary mt-2">Book Now</button>
+  <input type="datetime-local" name="start_time" class="form-control">
+  <textarea name="reason"></textarea>
+  <button type="submit">Book</button>
 </form>
-{% endblock %}

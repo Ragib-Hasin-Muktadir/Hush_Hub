@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}Therapist Profile{% endblock %}
 {% block content %}
-<h3>{{ therapist.user.username }}'s Profile</h3>
-
-<p><strong>Specialization:</strong> {{ therapist.specialization }}</p>
-<p><strong>Experience:</strong> {{ therapist.experience }} years</p>
-<p><strong>Bio:</strong> {{ therapist.bio }}</p>
-
-<a href="{% url 'therapist:booking' therapist.id %}" class="btn btn-success mt-3">Book Session</a>
+<h3>Session Notes</h3>
+{% for note in notes %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <p><strong>Appointment:</strong> <a href="{% url 'therapist:appointment_detail' note.appointment.pk %}">{{ note.appointment }}</a></p>
+      <p>{{ note.notes|linebreaks }}</p>
+    </div>
+  </div>
+{% empty %}
+  <p>No notes yet.</p>
+{% endfor %}
 {% endblock %}
