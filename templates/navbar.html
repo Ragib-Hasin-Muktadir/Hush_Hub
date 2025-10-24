@@ -37,6 +37,22 @@
                     </ul>
                 </div>
 
+
+<div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="therapistDropdown" role="button"
+       data-bs-toggle="dropdown" aria-expanded="false">
+        Therapist
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="therapistDropdown">
+        <li><a class="dropdown-item" href="{% url 'therapist:dashboard' %}">Dashboard</a></li>
+        <li><a class="dropdown-item" href="{% url 'therapist:list' %}">Therapist List</a></li>
+        <li><a class="dropdown-item" href="{% url 'therapist:appointments' %}">Appointments</a></li>
+        <li><a class="dropdown-item" href="{% url 'therapist:notes' %}">Session Notes</a></li>
+    </ul>
+</div>
+
+
+
                 <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
                 <a class="nav-link" href="{% url 'rewards:user_progress' %}">Rewards 🎁</a>
                 <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>

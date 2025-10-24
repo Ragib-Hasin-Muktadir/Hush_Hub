@@ -6,7 +6,7 @@
   <tbody>
   {% for a in appointments %}
     <tr>
-      <td>{% if user.user_type=='therapist' %}{{ a.patient.username }}{% else %}{{ a.therapist.username }}{% endif %}</td>
+      <td>{% if user.user_type == 'therapist' %}{{ a.patient.username }}{% else %}{{ a.therapist.username }}{% endif %}</td>
       <td>{{ a.start_time|date:"M d, Y H:i" }}</td>
       <td>{{ a.status }}</td>
       <td><a href="{% url 'therapist:appointment_detail' a.pk %}">View</a></td>

@@ -38,8 +38,18 @@ def therapist_dashboard(request):
 
 
 def therapist_list(request):
-    therapists = User.objects.filter(user_type='therapist')
+    # Placeholder therapist data — later can be connected to User model or DB
+    therapists = [
+        {"name": "Dr. Rahman", "specialty": "Clinical Psychologist"},
+        {"name": "Dr. Nabila", "specialty": "Counselor"},
+        {"name": "Dr. Arif", "specialty": "Therapist"},
+    ]
     return render(request, 'therapist/therapist_list.html', {'therapists': therapists})
+
+def appointments(request):
+    appointments = Appointment.objects.all().order_by('-start_time')
+    return render(request, 'therapist/appointments.html', {'appointments': appointments})
+
 
 
 def therapist_profile(request, user_id):
