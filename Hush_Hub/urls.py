@@ -13,6 +13,8 @@ urlpatterns = [
     path('wellness/', include('wellness.urls')),
     path('therapist/', include('therapist.urls')),
     path('rewards/', include('rewards.urls', namespace='rewards')),
+    path('therapist/', include('therapist.urls')),
+
 ]
 
 if settings.DEBUG:

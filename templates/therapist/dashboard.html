@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align:center; margin-top:50px;">
+    <h2>🧠 Therapist Dashboard</h2>
+    <p>Welcome, {{ request.user.username }}!</p>
+
+    <h3>Upcoming Appointments</h3>
+    {% if upcoming %}
+        <ul>
+        {% for a in upcoming %}
+            <li>{{ a.patient }} — {{ a.start_time|date:"M d, Y H:i" }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming appointments.</p>
+    {% endif %}
+</div>
+{% endblock %}
